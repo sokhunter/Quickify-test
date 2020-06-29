@@ -3,13 +3,14 @@ from selenium import webdriver
 import HtmlTestRunner
 import sys
 sys.path.append("..")
+from Quickify.helpers.web_helper import *
 from Quickify.helpers.auth_helper import *
 
 class Auth(unittest.TestCase):
 	def setUp(self):
 		self.driver = webdriver.Chrome(executable_path=r"C:\Users\emyli\Desktop\Stefany\Cursos\Python\selenium\AlquilerEquipos\ChromeTests\chromedriver_win32\chromedriver.exe")
-		self.driver.get("https://quickify.azurewebsites.net/Auth/login")
-		self.driver.implicitly_wait(5)
+		webHelper = Web_helper(self.driver)
+		webHelper.load()
 
 	def test_signup(self):
 		driver = self.driver
@@ -38,4 +39,4 @@ class Auth(unittest.TestCase):
 		self.driver.close()
 
 if __name__ == '__main__':
-	unittest.main(testRunner = HtmlTestRunner.HTMLTestRunner(output='EdgeTests/reports'))
+	unittest.main(testRunner = HtmlTestRunner.HTMLTestRunner(output='ChromeTests/reports'))

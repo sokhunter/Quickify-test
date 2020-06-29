@@ -3,14 +3,15 @@ from selenium import webdriver
 import HtmlTestRunner
 import sys
 sys.path.append("..")
+from Quickify.helpers.web_helper import *
 from Quickify.helpers.auth_helper import *
 from Quickify.helpers.project_helper import *
 
 class Project(unittest.TestCase):
 	def setUp(self):
 		self.driver = webdriver.Edge(executable_path=r"C:\Users\emyli\Desktop\Stefany\Cursos\Python\selenium\AlquilerEquipos\EdgeTests\edgedriver_win64\msedgedriver.exe")
-		self.driver.get("https://quickify.azurewebsites.net/Auth/login")
-		self.driver.implicitly_wait(5)
+		webHelper = Web_helper(self.driver)
+		webHelper.load()
 		authHelper = Auth_helper(self.driver)
 		authHelper.login('emylivaque@gmail.com', 'password')
 		self.projectHelper = Project_helper(self.driver)

@@ -3,6 +3,7 @@ from selenium import webdriver
 import HtmlTestRunner
 import sys
 sys.path.append("..")
+from Quickify.helpers.web_helper import *
 from Quickify.helpers.auth_helper import *
 from Quickify.helpers.backlog_helper import *
 from Quickify.helpers.task_helper import *
@@ -10,8 +11,8 @@ from Quickify.helpers.task_helper import *
 class Task(unittest.TestCase):
 	def setUp(self):
 		self.driver = webdriver.Chrome(executable_path=r"C:\Users\emyli\Desktop\Stefany\Cursos\Python\selenium\AlquilerEquipos\ChromeTests\chromedriver_win32\chromedriver.exe")
-		self.driver.get("https://quickify.azurewebsites.net/Auth/login")
-		self.driver.implicitly_wait(5)
+		webHelper = Web_helper(self.driver)
+		webHelper.load()
 		authHelper = Auth_helper(self.driver)
 		authHelper.login('emylivaque@gmail.com', 'password')
 		self.backlogHelper = Backlog_helper(self.driver)
@@ -19,10 +20,10 @@ class Task(unittest.TestCase):
 		self.driver.find_element_by_xpath('//*[@id="content"]/div/table/tbody/tr/td[6]/a').click()
 		self.driver.implicitly_wait(5)
 
-	# def test_list_us_tasks(self):
-	# 	driver = self.driver
-	# 	taskHelper = Task_helper(self.driver)
-	# 	taskHelper.list_tasks()
+	def test_list_us_tasks(self):
+		driver = self.driver
+		taskHelper = Task_helper(self.driver)
+		taskHelper.list_tasks()
 		
 	def test_add_user_story_task(self):
 		driver = self.driver
@@ -61,4 +62,4 @@ class Task(unittest.TestCase):
 		self.driver.close()
 
 if __name__ == '__main__':
-	unittest.main(testRunner = HtmlTestRunner.HTMLTestRunner(output='EdgeTests/reports'))
+	unittest.main(testRunner = HtmlTestRunner.HTMLTestRunner(output='ChromeTests/reports'))

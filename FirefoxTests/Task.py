@@ -20,22 +20,22 @@ class Task(unittest.TestCase):
 		self.driver.find_element_by_xpath('//*[@id="content"]/div/table/tbody/tr/td[6]/a').click()
 		self.driver.implicitly_wait(5)
 
-	# def test_list_us_tasks(self):
-	# 	driver = self.driver
-	# 	taskHelper = Task_helper(self.driver)
-	# 	taskHelper.list_tasks()
+	def test_list_us_tasks(self):
+		driver = self.driver
+		taskHelper = Task_helper(self.driver)
+		taskHelper.list_tasks()
 		
 	def test_add_user_story_task(self):
 		driver = self.driver
 		driver.find_element_by_id("btn_Tasks_Crear").click()
 		driver.implicitly_wait(5)
-		self.backlogHelper.save_task('test task us', '002020-12-09T18:11:00', 'test description')
+		self.backlogHelper.save_task('test task us', '2020-12-09T18:11:00', 'test description')
 		
 	def test_edit_user_story_task(self):
 		driver = self.driver
 		driver.find_element_by_xpath('//*[@id="content"]/div/table/tbody/tr[2]/td[1]/a[1]').click()
 		driver.implicitly_wait(5)
-		self.backlogHelper.save_task('test edit task us', '002021-12-09T18:11:00', 'test edit description')
+		self.backlogHelper.save_task('test edit task us', '2021-12-09T18:11:00', 'test edit description')
 		
 	def test_delete_user_story_task(self):
 		driver = self.driver
