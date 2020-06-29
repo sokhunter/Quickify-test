@@ -1,0 +1,31 @@
+import unittest
+from selenium import webdriver
+import HtmlTestRunner
+import sys
+sys.path.append("..")
+from Quickify.helpers.auth_helper import *
+from Quickify.helpers.project_helper import *
+
+class Project(unittest.TestCase):
+	def setUp(self):
+		self.driver = webdriver.Edge(executable_path=r"C:\Users\emyli\Desktop\Stefany\Cursos\Python\selenium\AlquilerEquipos\EdgeTests\edgedriver_win64\msedgedriver.exe")
+		self.driver.get("https://quickify.azurewebsites.net/Auth/login")
+		self.driver.implicitly_wait(5)
+		authHelper = Auth_helper(self.driver)
+		authHelper.login('emylivaque@gmail.com', 'password')
+		self.projectHelper = Project_helper(self.driver)
+
+	def test_add(self):
+		driver = self.driver
+		driver.find_element_by_id("btn_Proyect_Crear").click()
+		driver.implicitly_wait(5)
+		self.projectHelper.save('test project', [('Andres Loa Puris', 'Analista'), ('Michell Reyes Cueva', 'Desarrollador')])
+
+	def test_open(self):
+		self.projectHelper.open()
+
+	def tearDown(self):
+		self.driver.close()
+
+if __name__ == '__main__':
+	unittest.main(testRunner = HtmlTestRunner.HTMLTestRunner(output='EdgeTests/reports'))
